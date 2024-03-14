@@ -17,7 +17,7 @@ public class LoginTest {
     public void start(){
         System.setProperty("webdriver.chrome.driver", "D:\\DEVELOPMENT\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 10);
+        wait = new WebDriverWait(driver, 11);
     }
 
     @Test
