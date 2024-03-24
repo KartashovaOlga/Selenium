@@ -30,7 +30,7 @@ public class StickersTest {
         driver.navigate().to("http://localhost/litecart");
 
         List<WebElement> linksList = driver
-                .findElements(By.xpath("//ul[@class='listing-wrapper products']//li[@class='product column shadow hover-light']"));
+                .findElements(By.cssSelector(".product"));
         List<WebElement> stickers;
 
         for(WebElement element : linksList){
