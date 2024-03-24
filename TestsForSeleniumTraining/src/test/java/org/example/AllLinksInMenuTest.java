@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
 public class AllLinksInMenuTest {
@@ -30,16 +31,25 @@ public class AllLinksInMenuTest {
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
 
-        List<WebElement> linksList = driver.findElements(By.xpath("//ul//li//a"));
+        ArrayList<String> linksList = new ArrayList<>();
+        driver.findElements(By.cssSelector("#box-apps-menu a")).stream().forEach(e
+                -> linksList.add(e.getAttribute("href")));
 
-        int numberOfListElements = linksList.size();
 
-        for (int i = 0; i < numberOfListElements ; i++){
-            linksList = driver.findElements(By.cssSelector("#box-apps-menu a"));
-            linksList.get(i).click();
+        ArrayList<String> innerLinksList = new ArrayList<>();
+        for (String link: linksList){
+            driver.navigate().to(link);
             assertEquals(1, driver.findElements(By.xpath("//td[@id='content']//h1")).size());
 
+            driver.findElements(By.cssSelector("#box-apps-menu li ul li a")).stream().forEach(e
+                    -> innerLinksList.add(e.getAttribute("href")));
 
+            for (String innerLink : innerLinksList){
+                driver.navigate().to(innerLink);
+                assertEquals(1, driver.findElements(By.xpath("//td[@id='content']//h1")).size());
+
+            }
+            innerLinksList.clear();
         }
     }
 
