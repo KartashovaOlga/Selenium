@@ -35,7 +35,7 @@ public class StickersTest {
 
         for(WebElement element : linksList){
 
-            stickers  = element.findElements(By.cssSelector("[class ^=sticker]"));
+            stickers  = element.findElements(By.cssSelector(".sticker"));
 
             assertEquals(1, stickers.size());
         }
