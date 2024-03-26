@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
@@ -42,15 +43,18 @@ public class GeoZonesSortingTest {
         countriesList.stream().forEach(e -> countryLinks.add(e.getAttribute("href")));
 
         List<String> zones = new ArrayList<>();
+        List<Select> selectList = new ArrayList<>();
 
         for(String country : countryLinks){
 
             driver.navigate().to(country);
             driver.findElements(By.cssSelector("select[name*=zone_code]")).stream().forEach(e
-                    -> zones.add(e.getAttribute("value")));
+                    -> selectList.add(new Select(e)));
 
+            selectList.stream().forEach(select -> zones.add(select.getFirstSelectedOption().getAttribute("text")));
             assertTrue(isSorted(zones));
             zones.clear();
+            selectList.clear();
         }
 
     }
