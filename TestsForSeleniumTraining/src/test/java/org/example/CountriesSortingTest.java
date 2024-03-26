@@ -58,12 +58,12 @@ public class CountriesSortingTest {
 
         if(!notOneZoneList.isEmpty()){
 
-            List<WebElement> zoneElements = new ArrayList<>();
+            List<WebElement> zoneElements;
             List<String> zoneString = new ArrayList<>();
             for (String zone:notOneZoneList){
                 driver.navigate().to(zone);
 
-                zoneElements =  driver.findElements(By.cssSelector("table[id=table-zones] td:nth-child(3) input[type=hidden]"));
+                zoneElements =  driver.findElements(By.cssSelector("table[id=table-zones] td:nth-child(3) input[name^=zones]"));
 
                for (WebElement zoneElement :zoneElements){
                    zoneString.add(zoneElement.getAttribute("value"));
